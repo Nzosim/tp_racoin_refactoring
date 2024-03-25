@@ -1,10 +1,10 @@
 <?php
 
 // Définition de l'espace de noms
-namespace controller;
+namespace App\controller;
 
 // Importation de la classe ApiKey du modèle
-use model\ApiKey;
+use App\model\ApiKey;
 
 // Définition de la classe KeyGenerator
 class KeyGenerator {

@@ -5,7 +5,7 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - ./:/var/www/html
+            - ./src:/var/www/html
         command: php -S 0.0.0.0:80 -t ./public
     db:
         image: mariadb:10

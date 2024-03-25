@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Created by PhpStorm.
+ * User: ponicorn
+ * Date: 26/01/15
+ * Time: 00:25
+ */
+
 namespace App\controller;
 
 use App\model\Annonce;
@@ -8,11 +15,13 @@ use App\model\Photo;
 
 class viewAnnonceur
 {
-
-    function afficherAnnonceur($twig, $chemin, $n, $cat)
+    public function __construct()
     {
-        $annonceur = annonceur::find($n);
-        if (!isset($annonceur)) {
+    }
+    function afficherAnnonceur($twig, $menu, $chemin, $n, $cat)
+    {
+        $this->annonceur = annonceur::find($n);
+        if (!isset($this->annonceur)) {
             echo "404";
             return;
         }
@@ -33,7 +42,7 @@ class viewAnnonceur
         }
         $template = $twig->load("annonceur.html.twig");
         echo $template->render(array(
-            'nom' => $annonceur,
+            'nom' => $this->annonceur,
             "chemin" => $chemin,
             "annonces" => $annonces,
             "categories" => $cat
