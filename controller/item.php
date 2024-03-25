@@ -21,12 +21,9 @@ use model\Categorie;
         }
 
         $menu = array(
-            array('href' => $chemin,
-                'text' => 'Acceuil'),
-            array('href' => $chemin."/cat/".$n,
-                'text' => Categorie::find($this->annonce->id_categorie)?->nom_categorie),
-            array('href' => $chemin."/item/".$n,
-            'text' => $this->annonce->titre)
+            array('href' => $chemin,'text' => 'Acceuil'),
+            array('href' => $chemin."/cat/".$n,'text' => Categorie::find($this->annonce->id_categorie)?->nom_categorie),
+            array('href' => $chemin."/item/".$n,'text' => $this->annonce->titre)
         );
 
         $this->annonceur = Annonceur::find($this->annonce->id_annonceur);
@@ -145,34 +142,17 @@ use model\Categorie;
         $errors['priceAdvertiser'] = '';
 
 
-        // On teste que les champs ne soient pas vides et soient de bons types
-        if(empty($nom)) {
-            $errors['nameAdvertiser'] = 'Veuillez entrer votre nom';
-        }
-        if(!isEmail($email)) {
-            $errors['emailAdvertiser'] = 'Veuillez entrer une adresse mail correcte';
-        }
-        if(empty($phone) && !is_numeric($phone) ) {
-            $errors['phoneAdvertiser'] = 'Veuillez entrer votre numéro de téléphone';
-        }
-        if(empty($ville)) {
-            $errors['villeAdvertiser'] = 'Veuillez entrer votre ville';
-        }
-        if(!is_numeric($departement)) {
-            $errors['departmentAdvertiser'] = 'Veuillez choisir un département';
-        }
-        if(!is_numeric($categorie)) {
-            $errors['categorieAdvertiser'] = 'Veuillez choisir une catégorie';
-        }
-        if(empty($title)) {
-            $errors['titleAdvertiser'] = 'Veuillez entrer un titre';
-        }
-        if(empty($description)) {
-            $errors['descriptionAdvertiser'] = 'Veuillez entrer une description';
-        }
-        if(empty($price) || !is_numeric($price)) {
-            $errors['priceAdvertiser'] = 'Veuillez entrer un prix';
-        }
+            
+        validate('nameAdvertiser', $nom, 'empty', 'Veuillez entrer votre nom');
+        validate('emailAdvertiser', $email, 'email', 'Veuillez entrer une adresse mail correcte');
+        validate('phoneAdvertiser', $phone, 'numeric', 'Veuillez entrer votre numéro de téléphone');
+        validate('villeAdvertiser', $ville, 'empty', 'Veuillez entrer votre ville');
+        validate('departmentAdvertiser', $departement, 'numeric', 'Veuillez choisir un département');
+        validate('categorieAdvertiser', $categorie, 'numeric', 'Veuillez choisir une catégorie');
+        validate('titleAdvertiser', $title, 'empty', 'Veuillez entrer un titre');
+        validate('descriptionAdvertiser', $description, 'empty', 'Veuillez entrer une description');
+        validate('priceAdvertiser', $price, 'numeric', 'Veuillez entrer un prix');
+
 
         // On vire les cases vides
         $errors = array_values(array_filter($errors));
@@ -211,6 +191,24 @@ use model\Categorie;
 
             $template = $twig->load("modif-confirm.html.twig");
             echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin));
+        }
+    }
+}
+
+function validate($field, $value, $type, $errorMessage) {
+    global $errors;
+
+    if ($type === 'numeric') {
+        if (!is_numeric($value)) {
+            $errors[$field] = $errorMessage;
+        }
+    } else if ($type === 'email') {
+        if (!isEmail($value)) {
+            $errors[$field] = $errorMessage;
+        }
+    } else { // type is 'empty'
+        if (empty($value)) {
+            $errors[$field] = $errorMessage;
         }
     }
 }
