@@ -113,16 +113,16 @@ $app->map(['GET, POST'], '/item/{id}/confirm', function ($request, $response, $a
     $item->edit($twig, $menu, $chemin, $id, $allPostVars);
 });
 
-$app->get('/search', function () use ($twig, $menu, $chemin, $cat) {
+$app->get('/search', function () use ($twig, $chemin, $cat) {
     $s = new controller\Search();
-    $s->show($twig, $menu, $chemin, $cat->getCategories());
+    $s->show($twig, $chemin, $cat->getCategories());
 });
 
 
-$app->post('/search', function ($request, $response) use ($app, $twig, $menu, $chemin, $cat) {
+$app->post('/search', function ($request, $response) use ($app, $twig, $chemin, $cat) {
     $array = $request->getParsedBody();
     $s     = new controller\Search();
-    $s->research($array, $twig, $menu, $chemin, $cat->getCategories());
+    $s->research($array, $twig, $chemin, $cat->getCategories());
 
 });
 
