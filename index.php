@@ -126,10 +126,10 @@ $app->post('/search', function ($request, $response) use ($app, $twig, $chemin, 
 
 });
 
-$app->get('/annonceur/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
+$app->get('/annonceur/{n}', function ($arg) use ($twig, $chemin, $cat) {
     $n         = $arg['n'];
     $annonceur = new controller\viewAnnonceur();
-    $annonceur->afficherAnnonceur($twig, $menu, $chemin, $n, $cat->getCategories());
+    $annonceur->afficherAnnonceur($twig, $chemin, $n, $cat->getCategories());
 });
 
 $app->get('/del/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin) {
