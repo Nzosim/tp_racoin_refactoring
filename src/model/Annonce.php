@@ -9,12 +9,12 @@ class Annonce extends \Illuminate\Database\Eloquent\Model {
     public $links = null;
 
 
-    public function annonceur()
+    public function annonceur(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\model\Annonceur', 'id_annonceur');
     }
 
-    public function photo()
+    public function photo(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\model\Photo', 'id_photo');
     }
