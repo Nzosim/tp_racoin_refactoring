@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 
 use App\controller\getCategorie;
 use App\controller\getDepartment;
-use App\controller\index;
+use App\controller\getAnnonce;
 use App\controller\item;
 use App\db\connection;
 use App\controller\addItem;
@@ -77,14 +77,14 @@ $cat = new getCategorie();
 $dpt = new getDepartment();
 
 $app->get('/', function () use ($twig, $menu, $chemin, $cat) {
-    $index = new index();
-    $index->displayAllAnnonce($twig, $menu, $chemin, $cat->getCategories());
+    $annonce = new getAnnonce();
+    $annonce->displayAllAnnonce($twig, $menu, $chemin, $cat->getCategories());
 });
 
-$app->get('/item/{n}', function ($request, $response, $arg) use ($twig, $menu, $chemin, $cat) {
+$app->get('/item/{n}', function ($request, $response, $arg) use ($twig, $chemin, $cat) {
     $n     = $arg['n'];
     $item = new item();
-    $item->afficherItem($twig, $menu, $chemin, $n, $cat->getCategories());
+    $item->afficherItem($twig, $chemin, $n, $cat->getCategories());
 });
 
 $app->get('/add', function () use ($twig, $app, $menu, $chemin, $cat, $dpt) {
@@ -129,7 +129,7 @@ $app->post('/search', function ($request, $response) use ($app, $twig, $chemin, 
     $s->research($array, $twig, $chemin, $cat->getCategories());
 });
 
-$app->get('/annonceur/{n}', function ($arg) use ($twig, $chemin, $cat) {
+$app->get('/annonceur/{n}', function ($request, $response, $arg) use ($twig, $chemin, $cat) {
     $n         = $arg['n'];
     $annonceur = new viewAnnonceur();
     $annonceur->afficherAnnonceur($twig, $chemin, $n, $cat->getCategories());

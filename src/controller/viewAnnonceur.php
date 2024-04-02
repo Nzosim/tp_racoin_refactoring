@@ -9,16 +9,18 @@
 
 namespace App\controller;
 
+use AllowDynamicProperties;
 use App\model\Annonce;
 use App\model\Annonceur;
 use App\model\Photo;
 
+#[AllowDynamicProperties]
 class viewAnnonceur
 {
     public function __construct()
     {
     }
-    function afficherAnnonceur($twig, $menu, $chemin, $n, $cat)
+    function afficherAnnonceur($twig, $chemin, $n, $cat)
     {
         $this->annonceur = annonceur::find($n);
         if (!isset($this->annonceur)) {

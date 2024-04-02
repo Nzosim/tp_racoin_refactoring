@@ -11,7 +11,7 @@ use App\model\Categorie;
 #[AllowDynamicProperties] class item {
     public function __construct(){
     }
-    function afficherItem($twig, $menu, $chemin, $n, $cat): void
+    function afficherItem($twig, $chemin, $n, $cat): void
     {
 
         $this->annonce = Annonce::find($n);
