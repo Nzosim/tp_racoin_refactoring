@@ -17,5 +17,16 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": true
         }
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpcs:fix": "phpcbf",
+        
+        "phpstan": "phpstan analyse",
+        "lint": "eslint . --ext .js "
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "^1.10"
     }
 }
