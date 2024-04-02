@@ -1,3 +1,6 @@
+<h1>GRomangin Clément /Holder Jules /Simonin Enzo
+</h1>
+
 ## Racoin
 
 Racoin est une application de vente en ligne entre particulier.
